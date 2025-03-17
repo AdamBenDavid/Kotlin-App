@@ -1,4 +1,4 @@
-package com.example.cwc
+package com.example.mymyko
 
 import org.junit.Test
 

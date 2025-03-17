@@ -1,4 +1,4 @@
-package com.example.cwc.viewmodel
+package com.example.mymyko.viewmodel
 
 import android.graphics.BitmapFactory
 import android.widget.ImageView
@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cwc.data.local.User
-import com.example.cwc.data.repository.UserRepository
+import com.example.mymyko.data.local.User
+import com.example.mymyko.data.repository.UserRepository
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 
@@ -65,8 +65,8 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
         } else if (!it.profileImageUrl.isNullOrEmpty()) {
           Picasso.get()
             .load(it.profileImageUrl)
-            .placeholder(com.example.cwc.R.drawable.profile_foreground)
-            .error(com.example.cwc.R.drawable.profile_foreground)
+            .placeholder(com.example.mymyko.R.drawable.profile_foreground)
+            .error(com.example.mymyko.R.drawable.profile_foreground)
             .into(profileImage)
         }
       }

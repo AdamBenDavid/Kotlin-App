@@ -1,4 +1,4 @@
-package com.example.cwc
+package com.example.mymyko
 
 import android.os.Bundle
 import android.util.Log
@@ -14,13 +14,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.cwc.adapters.PostAdapter
-import com.example.cwc.data.local.AppDatabase
-import com.example.cwc.data.local.User
-import com.example.cwc.data.models.Post
-import com.example.cwc.data.repository.UserRepository
-import com.example.cwc.viewmodel.UserViewModel
-import com.example.cwc.viewmodel.UserViewModelFactory
+import com.example.mymyko.adapters.PostAdapter
+import com.example.mymyko.data.local.AppDatabase
+import com.example.mymyko.data.local.User
+import com.example.mymyko.data.models.Post
+import com.example.mymyko.data.repository.UserRepository
+import com.example.mymyko.viewmodel.UserViewModel
+import com.example.mymyko.viewmodel.UserViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query

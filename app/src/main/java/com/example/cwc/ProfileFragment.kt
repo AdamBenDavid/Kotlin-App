@@ -1,4 +1,4 @@
-package com.example.cwc
+package com.example.mymyko
 
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -14,10 +14,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.cwc.adapters.ProfilePostAdapter
-import com.example.cwc.cloudinary.CloudinaryService
-import com.example.cwc.cloudinary.CloudinaryUploadResponse
-import com.example.cwc.data.models.Post
+import com.example.mymyko.adapters.ProfilePostAdapter
+import com.example.mymyko.cloudinary.CloudinaryService
+import com.example.mymyko.cloudinary.CloudinaryUploadResponse
+import com.example.mymyko.data.models.Post
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
@@ -232,7 +232,7 @@ class ProfileFragment : Fragment() {
     val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
     val filePart = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-    val preset = "CWC - Content With Coffee"
+    val preset = "mymyko - Content With Coffee"
     val presetRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), preset)
 
     val call = CloudinaryService.api.uploadImage("dtdw1bmq4", filePart, presetRequestBody)
@@ -265,7 +265,7 @@ class ProfileFragment : Fragment() {
       val inputStream = requireContext().contentResolver.openInputStream(uri)
       inputStream?.let {
         val picturesDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        val appDir = File(picturesDir, "CWCImages")
+        val appDir = File(picturesDir, "mymykoImages")
         if (!appDir.exists()) {
           appDir.mkdirs()
         }

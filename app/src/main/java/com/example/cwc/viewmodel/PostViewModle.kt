@@ -1,10 +1,10 @@
-package com.example.cwc.viewmodel
+package com.example.mymyko.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.cwc.data.repository.PostRepository
+import com.example.mymyko.data.repository.PostRepository
 
 class PostViewModel : ViewModel() {
   private val repository = PostRepository()

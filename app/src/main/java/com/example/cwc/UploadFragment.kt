@@ -1,4 +1,4 @@
-package com.example.cwc
+package com.example.mymyko
 
 import android.net.Uri
 import android.os.Bundle
@@ -11,8 +11,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.cwc.cloudinary.CloudinaryService
-import com.example.cwc.cloudinary.CloudinaryUploadResponse
+import com.example.mymyko.cloudinary.CloudinaryService
+import com.example.mymyko.cloudinary.CloudinaryUploadResponse
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -50,7 +50,7 @@ class UploadFragment : Fragment() {
       val inputStream = requireContext().contentResolver.openInputStream(uri)
       inputStream?.let {
         val picturesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-        val appDir = File(picturesDir, "CWCImages")
+        val appDir = File(picturesDir, "mymykoImages")
         if (!appDir.exists()) {
           appDir.mkdirs()
         }
@@ -82,7 +82,7 @@ class UploadFragment : Fragment() {
     val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
     val filePart = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-    val preset = "CWC - Content With Coffee"
+    val preset = "mymyko - Content With Coffee"
     val presetRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), preset)
 
     val call = CloudinaryService.api.uploadImage("dtdw1bmq4", filePart, presetRequestBody)

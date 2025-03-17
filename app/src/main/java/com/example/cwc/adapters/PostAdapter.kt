@@ -1,4 +1,4 @@
-package com.example.cwc.adapters
+package com.example.mymyko.adapters
 
 import android.content.Context
 import android.content.Intent
@@ -15,10 +15,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.cwc.R
-import com.example.cwc.UserProfileActivity
-import com.example.cwc.data.models.Comment
-import com.example.cwc.data.models.Post
+import com.example.mymyko.R
+import com.example.mymyko.UserProfileActivity
+import com.example.mymyko.data.models.Comment
+import com.example.mymyko.data.models.Post
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso

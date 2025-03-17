@@ -1,8 +1,8 @@
-package com.example.cwc.viewmodel
+package com.example.mymyko.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.cwc.data.repository.UserRepository
+import com.example.mymyko.data.repository.UserRepository
 
 class UserViewModelFactory(private val repository: UserRepository) : ViewModelProvider.Factory {
 

@@ -1,4 +1,4 @@
-package com.example.cwc
+package com.example.mymyko
 
 import android.os.Bundle
 import android.util.Log

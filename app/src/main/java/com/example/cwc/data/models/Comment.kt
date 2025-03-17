@@ -1,4 +1,4 @@
-package com.example.cwc.data.models
+package com.example.mymyko.data.models
 
 import com.google.firebase.auth.FirebaseAuth
 import java.io.Serializable

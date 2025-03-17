@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CWC"
+rootProject.name = "mymyko"
 include(":app")

@@ -1,4 +1,4 @@
-package com.example.cwc
+package com.example.mymyko
 
 import android.app.Activity
 import android.net.Uri
@@ -12,11 +12,11 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.cwc.R
-import com.example.cwc.data.models.Post
+import com.example.mymyko.R
+import com.example.mymyko.data.models.Post
 import com.google.firebase.firestore.FirebaseFirestore
-import com.example.cwc.cloudinary.CloudinaryService
-import com.example.cwc.cloudinary.CloudinaryUploadResponse
+import com.example.mymyko.cloudinary.CloudinaryService
+import com.example.mymyko.cloudinary.CloudinaryUploadResponse
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -105,7 +105,7 @@ class UpdateImageActivity : AppCompatActivity() {
       val inputStream = contentResolver.openInputStream(uri)
       inputStream?.let {
         val picturesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-        val appDir = File(picturesDir, "CWCImages")
+        val appDir = File(picturesDir, "mymykoImages")
         if (!appDir.exists()) {
           appDir.mkdirs()
         }
@@ -159,8 +159,8 @@ class UpdateImageActivity : AppCompatActivity() {
     val filePart = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
     // Use your Cloudinary preset and cloud name.
-    // Replace "CWC - Content With Coffee" and "dtdw1bmq4" with your actual preset and cloud name.
-    val preset = "CWC - Content With Coffee"
+    // Replace "mymyko - Content With Coffee" and "dtdw1bmq4" with your actual preset and cloud name.
+    val preset = "mymyko - Content With Coffee"
     val presetRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), preset)
     val call = CloudinaryService.api.uploadImage("dtdw1bmq4", filePart, presetRequestBody)
     call.enqueue(object : Callback<CloudinaryUploadResponse> {

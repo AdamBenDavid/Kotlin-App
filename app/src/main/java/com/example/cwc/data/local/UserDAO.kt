@@ -1,4 +1,4 @@
-package com.example.cwc.data.local
+package com.example.mymyko.data.local
 
 import androidx.room.*
 

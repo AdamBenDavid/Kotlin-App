@@ -1,7 +1,7 @@
-package com.example.cwc.data.repository
+package com.example.mymyko.data.repository
 
-import com.example.cwc.data.local.UserDao
-import com.example.cwc.data.local.User
+import com.example.mymyko.data.local.UserDao
+import com.example.mymyko.data.local.User
 
 class UserRepository(private val userDao: UserDao) {
 

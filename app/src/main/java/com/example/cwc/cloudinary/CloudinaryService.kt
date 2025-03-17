@@ -1,4 +1,4 @@
-package com.example.cwc.cloudinary
+package com.example.mymyko.cloudinary
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

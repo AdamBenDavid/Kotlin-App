@@ -1,8 +1,8 @@
-package com.example.cwc.data.models
+package com.example.mymyko.data.models
 
 data class Current(
   val cloud: Int,
-  val condition: com.example.cwc.data.models.Condition,
+  val condition: com.example.mymyko.data.models.Condition,
   val dewpoint_c: Double,
   val dewpoint_f: Double,
   val feelslike_c: Double,

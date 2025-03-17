@@ -1,4 +1,4 @@
-package com.example.cwc.cloudinary
+package com.example.mymyko.cloudinary
 
 // This data class matches the JSON response from Cloudinary.
 data class CloudinaryUploadResponse(

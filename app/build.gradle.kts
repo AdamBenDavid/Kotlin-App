@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-  namespace = "com.example.cwc"
+  namespace = "com.example.mymyko"
   compileSdk = 35
 
   defaultConfig {
-    applicationId = "com.example.cwc"
+    applicationId = "com.example.mymyko"
     minSdk = 29
     targetSdk = 35
     versionCode = 1

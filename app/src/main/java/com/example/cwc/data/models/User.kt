@@ -1,4 +1,4 @@
-package com.example.cwc.data.models
+package com.example.mymyko.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

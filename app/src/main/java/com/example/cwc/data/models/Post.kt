@@ -1,4 +1,4 @@
-package com.example.cwc.data.models
+package com.example.mymyko.data.models
 
 import com.google.firebase.firestore.DocumentId
 import java.io.Serializable

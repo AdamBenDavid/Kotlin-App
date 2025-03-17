@@ -1,8 +1,8 @@
-package com.example.cwc.data.repository
+package com.example.mymyko.data.repository
 
 import android.content.Context
 import android.widget.Toast
-import com.example.cwc.data.models.Post
+import com.example.mymyko.data.models.Post
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 

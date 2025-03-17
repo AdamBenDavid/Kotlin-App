@@ -1,4 +1,4 @@
-package com.example.cwc.cloudinary
+package com.example.mymyko.cloudinary
 
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

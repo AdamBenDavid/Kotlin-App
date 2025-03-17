@@ -1,4 +1,4 @@
-package com.example.cwc.adapters
+package com.example.mymyko.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.cwc.R
-import com.example.cwc.data.models.Post
+import com.example.mymyko.R
+import com.example.mymyko.data.models.Post
 import java.io.File
 
 class UserPostsAdapter(

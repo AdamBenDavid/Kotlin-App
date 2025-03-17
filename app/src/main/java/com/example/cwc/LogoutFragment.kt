@@ -1,4 +1,4 @@
-package com.example.cwc
+package com.example.mymyko
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.cwc.data.local.AppDatabase
-import com.example.cwc.data.repository.UserRepository
-import com.example.cwc.viewmodel.UserViewModel
-import com.example.cwc.viewmodel.UserViewModelFactory
+import com.example.mymyko.data.local.AppDatabase
+import com.example.mymyko.data.repository.UserRepository
+import com.example.mymyko.viewmodel.UserViewModel
+import com.example.mymyko.viewmodel.UserViewModelFactory
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
