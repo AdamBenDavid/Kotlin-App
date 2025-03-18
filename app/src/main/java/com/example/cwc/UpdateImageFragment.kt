@@ -158,11 +158,9 @@ class UpdateImageActivity : AppCompatActivity() {
     val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
     val filePart = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-    // Use your Cloudinary preset and cloud name.
-    // Replace "mymyko - Content With Coffee" and "dtdw1bmq4" with your actual preset and cloud name.
-    val preset = "mymyko - Content With Coffee"
+    val preset = "post_pictures_preset"
     val presetRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), preset)
-    val call = CloudinaryService.api.uploadImage("dtdw1bmq4", filePart, presetRequestBody)
+    val call = CloudinaryService.api.uploadImage("dkogrec1q", filePart, presetRequestBody)
     call.enqueue(object : Callback<CloudinaryUploadResponse> {
       override fun onResponse(call: Call<CloudinaryUploadResponse>, response: Response<CloudinaryUploadResponse>) {
         if (response.isSuccessful) {

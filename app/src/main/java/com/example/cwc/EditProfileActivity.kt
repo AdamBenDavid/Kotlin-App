@@ -226,7 +226,7 @@ class EditProfileActivity : AppCompatActivity() {
     val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
     val filePart = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-    val preset = "mymyko - Explore Mykonos Island"
+    val preset = "profile_pictures_preset"
     val presetRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), preset)
 
     val call = CloudinaryService.api.uploadImage("dkogrec1q", filePart, presetRequestBody)
