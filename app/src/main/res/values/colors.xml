@@ -18,7 +18,7 @@
 
   <color name="background_color">#E0F7FA</color> <!-- Light Turquoise Background -->
   <color name="primary">#0091EA</color> <!-- Primary Deep Blue -->
-  <color name="gray">#B0BEC5</color> <!-- Soft Gray for Neutral Elements -->
+<!--  <color name="gray">#B0BEC5</color> &lt;!&ndash; Soft Gray for Neutral Elements &ndash;&gt;-->
   <color name="black">#212121</color> <!-- Black remains unchanged -->
 
   <color name="coffee_card_bg">#B3E5FC</color> <!-- Light Blue for Cards -->
@@ -29,4 +29,9 @@
   <color name="red">#FF0000</color> <!-- Red remains unchanged -->
 
   <color name="aegean_blue">#0077B6</color> <!-- Mykonos-style deep blue -->
+
+  <color name="mykonos_blue">#007ACC</color>  <!-- Aegean Blue -->
+  <color name="mykonos_white">#FFFFFF</color>  <!-- White -->
+  <color name="gray">#B0B0B0</color>  <!-- Light Gray -->
+
 </resources>
