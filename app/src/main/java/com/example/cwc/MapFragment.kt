@@ -31,6 +31,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_map, container, false)
+
+        val childFragment = BottomNavFragment()
+        val bundle = Bundle()
+        bundle.putString("current_page", "map")
+        childFragment.arguments = bundle
+        childFragmentManager.beginTransaction()
+            .replace(R.id.navbar_container, childFragment)
+            .commit()
+
         tvWeatherRecommendation = view.findViewById(R.id.tvWeatherRecommendation)
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment

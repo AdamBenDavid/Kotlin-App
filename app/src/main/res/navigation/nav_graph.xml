@@ -107,6 +107,20 @@
   <fragment
       android:id="@+id/mapFragment"
       android:name="com.example.mymyko.MapFragment"
-      android:label="Cafe Map"
-      tools:layout="@layout/fragment_map" />
+      android:label="fragment_map"
+      tools:layout="@layout/fragment_map">
+    <action
+        android:id="@+id/action_mapFragment_to_home"
+        app:destination="@id/homeFragment" />
+    <action
+        android:id="@+id/action_mapFragment_to_profileFragment"
+        app:destination="@id/profileFragment" />
+    <action
+        android:id="@+id/action_mapFragment_to_uploadFragment"
+        app:destination="@id/uploadFragment" />
+    <action
+        android:id="@+id/action_mapFragment_to_logoutFragment"
+        app:destination="@id/logoutFragment" />
+
+  </fragment>
 </navigation>
