@@ -4,45 +4,39 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.json.JSONObject
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
     private var mMap: GoogleMap? = null
-    private lateinit var etSearch: EditText
-    private lateinit var btnSearch: Button
+    private lateinit var tvWeatherRecommendation: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_map, container, false)
-
-        etSearch = view.findViewById(R.id.et_search)
-        btnSearch = view.findViewById(R.id.btn_search)
-
-        btnSearch.setOnClickListener {
-            val query = etSearch.text.toString().trim()
-            if (query.isNotEmpty()) {
-                searchCoffeeShops(query)
-            } else {
-                Toast.makeText(requireContext(), "Enter a search term", Toast.LENGTH_SHORT).show()
-            }
-        }
+        tvWeatherRecommendation = view.findViewById(R.id.tvWeatherRecommendation)
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        fetchWeatherAndUpdateRecommendation() // Fetch weather data when the map is created
 
         return view
     }
@@ -50,116 +44,54 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Center the map on Israel
-        val israelCenter = LatLng(31.0461, 34.8516)
-        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(israelCenter, 7f))
+        // Center the map on Mykonos
+        val mykonosCenter = LatLng(37.4467, 25.3289)
+        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(mykonosCenter, 12f))
 
-        // Set a marker click listener to open more details
-        mMap?.setOnMarkerClickListener { marker ->
-            openCoffeeShopDetails(marker)
-            true  // Indicates we have consumed the event.
-        }
-    }
-
-    // Helper function to add a marker with a description
-    private fun addCoffeeMarker(location: LatLng, title: String, description: String) {
-        val marker = mMap?.addMarker(
-            MarkerOptions().position(location).title(title)
+        // Add a marker for reference
+        mMap?.addMarker(
+            MarkerOptions()
+                .position(mykonosCenter)
+                .title("Welcome to Mykonos!")
         )
-        marker?.tag = description
     }
 
-    private fun searchCoffeeShops(query: String) {
-        mMap?.clear()
+    private fun fetchWeatherAndUpdateRecommendation() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val jsonData = withContext(Dispatchers.IO) {
+                    val client = OkHttpClient()
+                    val apiKey = "200b857da17d668dbf479de6ff89c982"
+                    val url =
+                        "https://api.openweathermap.org/data/2.5/weather?q=Mykonos,GR&units=metric&appid=$apiKey"
+                    val request = Request.Builder().url(url).build()
+                    val response = client.newCall(request).execute()
+                    response.body?.string()
+                }
 
-        when {
-            query.equals("aroma", ignoreCase = true) -> {
-                val telAviv = LatLng(32.0853, 34.7818)
-                val jerusalem = LatLng(31.7683, 35.2137)
-                val haifa = LatLng(32.7940, 34.9896)
-                val rishonLezion = LatLng(31.9714, 34.7925)
+                if (jsonData != null) {
+                    val jsonObject = JSONObject(jsonData)
+                    val main = jsonObject.getJSONObject("main")
+                    val temp = main.getDouble("temp")
+                    val weatherDescription =
+                        jsonObject.getJSONArray("weather").getJSONObject(0).getString("description")
 
-                addCoffeeMarker(telAviv, "Aroma Tel Aviv", "A cozy café with a vibrant atmosphere in Tel Aviv.")
-                addCoffeeMarker(jerusalem, "Aroma Jerusalem", "Known for its artisan brews in the heart of Jerusalem.")
-                addCoffeeMarker(haifa, "Aroma Haifa", "Enjoy sea views with your coffee in Haifa.")
-                addCoffeeMarker(rishonLezion, "Aroma Rishon LeZion", "A popular spot for both locals and visitors.")
-                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(telAviv, 10f))
-            }
-            query.equals("cafe nero", ignoreCase = true) -> {
-                val telAviv = LatLng(32.0853, 34.7818)
-                val netanya = LatLng(32.3214, 34.8535)
-                val beerSheva = LatLng(31.2518, 34.7913)
-                val haifa = LatLng(32.7940, 34.9896)
+                    val recommendation = when {
+                        temp < 10 -> "It's a chilly ${temp}°C with ${weatherDescription}! Visit Mykonos’ museums 🏛️ or cozy up in a seaside taverna 🍷."
+                        temp in 10.0..20.0 -> "The temperature is ${temp}°C with ${weatherDescription}. Enjoy a scenic walk through Mykonos Town 🌆 or visit Little Venice! 🌅"
+                        temp in 20.0..30.0 -> "It's a warm ${temp}°C in Mykonos! Perfect for a beach day at Paradise Beach 🏖️ or a boat tour to Delos! ⛵"
+                        else -> "It's hot ${temp}°C with ${weatherDescription}! Chill at a luxurious Mykonos beach club 🏝️ or grab a refreshing cocktail 🍹."
+                    }
 
-                addCoffeeMarker(telAviv, "Cafe Nero Tel Aviv", "Stylish ambiance with modern decor in Tel Aviv.")
-                addCoffeeMarker(netanya, "Cafe Nero Netanya", "A favorite meeting spot in Netanya.")
-                addCoffeeMarker(beerSheva, "Cafe Nero Beer Sheva", "Comfortable seating and quality brews in Beer Sheva.")
-                addCoffeeMarker(haifa, "Cafe Nero Haifa", "Relax and enjoy your coffee with a view in Haifa.")
-                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(telAviv, 10f))
-            }
-            query.equals("coffee bean", ignoreCase = true) -> {
-                val telAviv = LatLng(32.0853, 34.7818)
-                val jerusalem = LatLng(31.7683, 35.2137)
-                val ramatGan = LatLng(32.0684, 34.8245)
-                val haifa = LatLng(32.7940, 34.9896)
-
-                addCoffeeMarker(telAviv, "Coffee Bean Tel Aviv", "A trendy café known for its unique blends in Tel Aviv.")
-                addCoffeeMarker(jerusalem, "Coffee Bean Jerusalem", "Experience a blend of tradition and innovation.")
-                addCoffeeMarker(ramatGan, "Coffee Bean Ramat Gan", "Popular for its lively vibe and specialty coffees.")
-                addCoffeeMarker(haifa, "Coffee Bean Haifa", "Offers a scenic view along with excellent coffee.")
-                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(telAviv, 10f))
-            }
-            query.equals("cafe cafe", ignoreCase = true) -> {
-                val telAviv = LatLng(32.0853, 34.7818)
-                val rishonLezion = LatLng(31.9714, 34.7925)
-                val netanya = LatLng(32.3214, 34.8535)
-                val jerusalem = LatLng(31.7683, 35.2137)
-
-                addCoffeeMarker(telAviv, "Cafe Cafe Tel Aviv", "Bright and modern space in Tel Aviv.")
-                addCoffeeMarker(rishonLezion, "Cafe Cafe Rishon LeZion", "A casual spot for great coffee in Rishon LeZion.")
-                addCoffeeMarker(netanya, "Cafe Cafe Netanya", "Relax in a friendly atmosphere in Netanya.")
-                addCoffeeMarker(jerusalem, "Cafe Cafe Jerusalem", "A must-visit spot in Jerusalem for coffee lovers.")
-                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(telAviv, 10f))
-            }
-            query.equals("cofix", ignoreCase = true) -> {
-                val telAviv = LatLng(32.0853, 34.7818)
-                val jerusalem = LatLng(31.7683, 35.2137)
-                val netanya = LatLng(32.3214, 34.8535)
-                val beerSheva = LatLng(31.2518, 34.7913)
-
-                addCoffeeMarker(telAviv, "Cofix Tel Aviv", "Enjoy a modern twist on classic coffee drinks in Tel Aviv.")
-                addCoffeeMarker(jerusalem, "Cofix Jerusalem", "A trendy café with a comfortable setting in Jerusalem.")
-                addCoffeeMarker(netanya, "Cofix Netanya", "A hotspot in Netanya for coffee enthusiasts.")
-                addCoffeeMarker(beerSheva, "Cofix Beer Sheva", "Known for its quick service and quality coffee in Beer Sheva.")
-                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(telAviv, 10f))
-            }
-            query.equals("gansipur", ignoreCase = true) -> {
-                val telAviv = LatLng(32.0853, 34.7818)
-                val jerusalem = LatLng(31.7683, 35.2137)
-                val haifa = LatLng(32.7940, 34.9896)
-                val netanya = LatLng(32.3214, 34.8535)
-
-                addCoffeeMarker(telAviv, "Gansipur Tel Aviv", "A vibrant café with a unique menu in Tel Aviv.")
-                addCoffeeMarker(jerusalem, "Gansipur Jerusalem", "Mixing tradition with modern coffee culture in Jerusalem.")
-                addCoffeeMarker(haifa, "Gansipur Haifa", "Offers an extensive coffee selection in Haifa.")
-                addCoffeeMarker(netanya, "Gansipur Netanya", "A friendly spot with cozy seating in Netanya.")
-                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(telAviv, 10f))
-            }
-            else -> {
-                Toast.makeText(requireContext(), "No data available for \"$query\"", Toast.LENGTH_SHORT).show()
+                    // Update the UI
+                    tvWeatherRecommendation.text = recommendation
+                } else {
+                    tvWeatherRecommendation.text = "Weather data not available for Mykonos"
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                tvWeatherRecommendation.text = "Weather data not available for Mykonos"
             }
         }
-    }
-
-    // Opens a dialog displaying more information about the selected coffee shop.
-    private fun openCoffeeShopDetails(marker: Marker) {
-        val title = marker.title ?: "Coffee Shop"
-        val description = marker.tag as? String ?: "No additional info available."
-
-        AlertDialog.Builder(requireContext())
-            .setTitle(title)
-            .setMessage(description)
-            .setPositiveButton("Close", null)
-            .show()
     }
 }

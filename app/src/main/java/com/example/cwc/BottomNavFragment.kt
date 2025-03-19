@@ -76,7 +76,7 @@ class BottomNavFragment : Fragment() {
         "home"    -> findNavController().navigate(R.id.action_uploadFragment_to_homeFragment)
         "profile" -> findNavController().navigate(R.id.action_uploadFragment_to_profileFragment)
         "map"     -> findNavController().navigate(R.id.action_uploadFragment_to_cafeMapFragment)
-        "logout"  -> findNavController().navigate(R.id.action_uploadFragment_to_logoutFragment)
+        "logout" -> findNavController().navigate(R.id.action_uploadFragment_to_logoutFragment)
       }
       else -> {
         findNavController().navigate(R.id.action_global_cafeMapFragment)
